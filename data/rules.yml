@@ -1,0 +1,50 @@
+version: "3.1"
+
+rules:
+
+# - rule: ruleName
+#   steps:
+#   - intent: nluIntent
+#   - action: domainUtter
+
+- rule: avtivate user_input_name form
+  steps:
+  - intent: info_input_name
+  - action: name_form
+  - active_loop: name_form
+
+- rule: stop user_input_name form
+  condition:
+  # 条件是：表单处于活跃状态
+  - active_loop: name_form
+  steps:
+  # 表单停用
+  - action: name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # 一旦槽填满后，提交表单时要运行的动作
+  - action: action_getSexByName
+  - action: utter_output_name
+
+
+- rule: testMax
+  steps:
+  - intent: testMax
+  - action: utter_testMax
+
+- rule: 查询对话
+  steps:
+  - intent: 查询
+  - action: utter_查询
+
+- rule: 说再见
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: 询问是否为机器人
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+

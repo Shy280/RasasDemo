@@ -1,0 +1,106 @@
+version: "3.1"
+
+
+
+nlu:
+
+# - intent: greet
+#   examples: |
+#     -
+#     -
+
+- regex: user_input_name
+  examples: |
+    - (?<=查)[a-zA-Z0-9\u4e00-\u9fa5]{2,5}(?=的)
+
+- intent: info_input_name
+  examples: |
+    - 请帮我查[张三](user_input_name)的性别
+    - 帮我查[张三](user_input_name)的性别
+    - 查[张三](user_input_name)的性别
+    - 我想查[张三](user_input_name)的性别
+
+
+- intent: testMax
+  examples: |
+    - 说个故事
+    - 说故事
+    - 我想听故事
+
+
+- intent: greet
+  examples: |
+    - 嘿
+    - 哈喽
+    - 嗨
+    - 早上好
+    - 晚上好
+    - 中午好
+    - 你好
+
+- intent: goodbye
+  examples: |
+    - 再见
+    - 拜拜
+    - 一会见
+    - 晚安
+    - 拜~
+
+- intent: affirm
+  examples: |
+    - 是的
+    - 是
+    - 的确是的
+    - 当然是的
+    - 听起来不错
+    - 正确的
+
+- intent: deny
+  examples: |
+    - 不是
+    - 不
+    - 从来没有
+    - 我不这么认为
+    - 不喜欢这样
+    - 不可能
+    - 不完全是
+
+- intent: mood_great
+  examples: |
+    - 完美
+    - 极好
+    - 了不起
+    - 美妙
+    - 超刺激
+    - 如此完美
+
+- intent: mood_unhappy
+  examples: |
+    - 我的心情很不好
+    - 我很伤心
+    - 我不太舒服
+    - 我很失望
+    - 超伤心
+    - 伤心
+    - 非常伤心
+    - 不开心
+    - 不好
+    - 不是很好
+    - 极度伤心
+    - 太糟糕了
+
+- intent: bot_challenge
+  examples: |
+    - 你是谁
+    - 你是？
+    - 你是机器人吗?
+    - 你是人类吗?
+    - 我在与机器人交流吗?
+    - 我在与人类交谈吗?
+
+
+- intent: 查询
+  examples: |
+    - 查找信息
+    - 查找房屋信息
+    - 查找不动产信息
