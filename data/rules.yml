@@ -6,6 +6,25 @@ rules:
 #   steps:
 #   - intent: nluIntent
 #   - action: domainUtter
+- rule: avtivate get_uname form
+  steps:
+  - intent: input_name
+  - action: uname_form
+  - active_loop: uname_form
+
+- rule: stop input_user form
+  condition:
+  # 条件是：表单处于活跃状态
+  - active_loop: uname_form
+  steps:
+  # 表单停用
+  - action: uname_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # 一旦槽填满后，提交表单时要运行的动作
+  - action: utter_output_user
+
 
 - rule: avtivate user_input_name form
   steps:
@@ -24,7 +43,6 @@ rules:
   - slot_was_set:
     - requested_slot: null
   # 一旦槽填满后，提交表单时要运行的动作
-  - action: action_getSexByName
   - action: utter_output_name
 
 

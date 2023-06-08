@@ -1,18 +1,10 @@
 version: "3.1"
-
-
-
 nlu:
-
-# - intent: greet
-#   examples: |
-#     -
-#     -
 
 - regex: user_input_name
   examples: |
     - (?<=查)[a-zA-Z0-9\u4e00-\u9fa5]{2,5}(?=的)
-
+    
 - intent: info_input_name
   examples: |
     - 请帮我查[张三](user_input_name)的性别
@@ -20,13 +12,18 @@ nlu:
     - 查[张三](user_input_name)的性别
     - 我想查[张三](user_input_name)的性别
 
+- intent: input_name
+  examples: |
+    - 请帮我查[张三](user_input_name)的全部信息
+    - 帮我查[张三](user_input_name)的全部信息
+    - 查[张三](user_input_name)的全部信息
+    - 我想查[张三](user_input_name)的全部信息
 
 - intent: testMax
   examples: |
     - 说个故事
     - 说故事
     - 我想听故事
-
 
 - intent: greet
   examples: |
@@ -97,8 +94,7 @@ nlu:
     - 你是人类吗?
     - 我在与机器人交流吗?
     - 我在与人类交谈吗?
-
-
+    
 - intent: 查询
   examples: |
     - 查找信息

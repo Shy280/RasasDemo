@@ -1,123 +1,110 @@
-version: "3.1"
+version: '3.1'
 
 intents:
-  - greet
-  - goodbye
   - affirm
+  - bot_challenge
   - deny
+  - goodbye
+  - greet
   - mood_great
   - mood_unhappy
-  - bot_challenge
-  - testMax
-  - 查询
-  - user_input_name
   - name_form
+  - testMax
+  - user_input_name
+  - 查询
   - info_input_name
+  - input_name
 
-
-
-
-##################################################### actions ################################################################
-actions:
-  - action_getSexByName
-
-
-
-
-  ##################################################### form ################################################################
-
-
-
+# actions:
+#   - action_getSexByName
+#   - action_getUserByName
 
 forms:
   name_form:
     required_slots:
-      - user_input_name
+    - user_input_name
 
-
-
-##################################################### responses ################################################################
+  uname_form:
+    required_slots: 
+    - input_uname
 
 responses:
-  
-  # utter_greet:
-  # - text: ""
 
   utter_output_name:
-  - text: "{user_input_name}的性别是{db_get_sex}"
+  - text: '{user_input_name}的性别是{db_get_sex}'
 
-
+  utter_output_user:
+  - text: '{input_uname}的信息是{db_usex},{db_uidcard},{db_uaddress}'
 
   utter_testMax:
-  - text: "当我们的冬天到来的时候，燕子就向一个辽远的地方飞去。在这块辽远的地方住着一个国王。他有十一个儿子和一个女儿艾丽莎。这十一个弟兄都是王子。他们上学校的时候，胸前佩带着心形的徽章，身边挂着宝剑。他们用钻石笔在金板上写字。他们能够把书从头背到尾，从尾背到头。人们一听就知道他们是王子。他们的妹妹艾丽莎坐在一个镜子做的小凳上。她有一本画册，那需要半个王国的代价才能买得到。啊，这些孩子是非常幸福的；然而他们并不是永远这样。他们的父亲是这整个国家的国王。他和一个恶毒的王后结了婚。她对这些可怜的孩子非常不好。他们在头一天就已经看得出来。整个宫殿里在举行盛大的庆祝，孩子们都在作招待客人的游戏。可是他们却没有得到那些多余的点心和烤苹果吃，她只给他们一茶杯的沙子；而且对他们说，这就算是好吃的东西。一个星期以后，她把小妹妹艾丽莎送到一个乡下农人家里去寄住。过了不久，她在国王面前说了许多关于那些可怜的王子的坏话，弄得他再也不愿意理他们了。"
+  - text: 当我们的冬天到来的时候，燕子就向一个辽远的地方飞去。在这块辽远的地方住着一个国王。他有十一个儿子和一个女儿艾丽莎。这十一个弟兄都是王子。他们上学校的时候，胸前佩带着心形的徽章，身边挂着宝剑。他们用钻石笔在金板上写字。他们能够把书从头背到尾，从尾背到头。人们一听就知道他们是王子。他们的妹妹艾丽莎坐在一个镜子做的小凳上。她有一本画册，那需要半个王国的代价才能买得到。啊，这些孩子是非常幸福的；然而他们并不是永远这样。他们的父亲是这整个国家的国王。他和一个恶毒的王后结了婚。她对这些可怜的孩子非常不好。他们在头一天就已经看得出来。整个宫殿里在举行盛大的庆祝，孩子们都在作招待客人的游戏。可是他们却没有得到那些多余的点心和烤苹果吃，她只给他们一茶杯的沙子；而且对他们说，这就算是好吃的东西。一个星期以后，她把小妹妹艾丽莎送到一个乡下农人家里去寄住。过了不久，她在国王面前说了许多关于那些可怜的王子的坏话，弄得他再也不愿意理他们了。
 
   utter_greet:
-  - text: "您好"
-  - text: "晚上好"  
+  - text: 您好
+  - text: 晚上好
 
   utter_cheer_up:
-  - text: "这里有些让你开心的东西:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+  - text: '这里有些让你开心的东西:'
+    image: https://i.imgur.com/nGF1K8f.jpg
 
   utter_did_that_help:
-  - text: "有什么我能帮到的吗?"
+  - text: 有什么我能帮到的吗?
 
   utter_happy:
-  - text: "好极了，继续!"
+  - text: 好极了，继续!
 
   utter_goodbye:
-  - text: "再见"
+  - text: 再见
 
   utter_iamabot:
-  - text: "我是个机器人，来自于Rasa"
+  - text: 我是个机器人，来自于Rasa
 
   utter_查询:
-  - text: "好的 正在为你查询"
+  - text: 好的 正在为你查询
 
   utter_getName:
-  - text: "你好,{name}"
-
-
-
-
-
-##################################################### entities ################################################################
+  - text: 你好,{name}
+  
 entities:
-  - user_input_name  
-
-
-
-
-
-
-
-
-##################################################### slot ################################################################
-
+- user_input_name
+- input_uname
 slots:
-
-  # name: 
-  #   type: text
-  #   mappings: 
-  #   - type: custom
-  #     action: action_testName
 
   user_input_name:
     type: text
-    influence_conversation: false  
-    mappings: 
+    influence_conversation: false
+    mappings:
     - type: from_entity
       entity: user_input_name
 
-
-  db_get_sex: 
+  input_uname:
     type: text
-    mappings: 
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: input_uname
+
+  db_get_sex:
+    type: text
+    mappings:
     - type: custom
-      action: action_getSexByName
 
+  db_usex:
+    type: text
+    mappings:
+    - type: custom
 
+  db_uidcard:
+    type: text
+    mappings:
+    - type: custom
+      action: action_getUserByName
 
+  db_uaddress:
+    type: text
+    mappings:
+    - type: custom
+      action: action_getUserByName
 
 
 session_config:

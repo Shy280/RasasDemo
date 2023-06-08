@@ -9,12 +9,12 @@
 
 # from typing import Any, Text, Dict, List
 #
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action
 from rasa_sdk.events import SlotSet
-from rasa_sdk.executor import CollectingDispatcher
 
+import pymssql   #sqlserver
 
-import pymysql
+import pymysql   #mysql
 
 
 conn = pymysql.connect(host='localhost',
@@ -26,6 +26,14 @@ conn = pymysql.connect(host='localhost',
                        )
 
   
+sqlserver = pymssql.connect('localhost', 
+                       'sa', 
+                       '123456', 
+                       'rasa', 
+                       charset="CP936")
+if sqlserver:
+    print("已连接数据库")
+
 #
 #
 # class ActionHelloWorld(Action):
@@ -65,20 +73,19 @@ class ActionGetSexByName(Action):
         vall = tracker.get_slot("user_input_name")
         print("slot:")
         print(vall)
-        # curcor = Conn.getConn("")
-        # mysql = Database()
-        sql = "select usex from tuser where uname = '%s'"%vall
+
+        sql = "select usex from tuser where uname = %s"
+
+
         cursor = conn.cursor()
 
         try:
-            cursor.execute(sql)
+            cursor.execute(sql,vall)
             resul = cursor.fetchall()
             usex=resul[0][0]
             print("resul")
             print(resul)
 
-            return [SlotSet("db_get_sex",usex)]
-            
         except Exception as e:
             print("Exception:")
             print(e)
@@ -86,3 +93,43 @@ class ActionGetSexByName(Action):
             return [SlotSet("db_get_sex",usex)]
         finally:
             cursor.close()
+
+        return [SlotSet("db_get_sex",usex)]
+
+class ActionGetUserByName(Action):
+    def name(self):
+        return 'action_getUserByName'
+    
+    def run(self, dispatcher, tracker, domain):
+        uname = ""
+        uname = tracker.get_slot("user_input_name")
+        print("slot:")
+        print(uname)
+
+        cursor = sqlserver.cursor()
+
+        sql = "select uname,usex,uidcard,uaddress from t_test where uname = %s"
+
+        try:
+            cursor.execute(sql,uname)
+            res = cursor.fetchone()
+        except Exception as e:
+            print(e) 
+            cursor.close()
+            conn.rollback
+            return [SlotSet('db_usex',None)]
+        
+        while res:
+            print(res[0], res[1], res[2], res[3])
+            res = cursor.fetchone()
+
+        cursor.close()
+        return [SlotSet('db_uname',res[0]),
+                SlotSet('db_usex',res[1]),
+                SlotSet('db_uidcard',res[2]),
+                SlotSet('db_uaddress',res[3])]
+
+
+
+
+
